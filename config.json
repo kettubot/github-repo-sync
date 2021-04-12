@@ -1,0 +1,10 @@
+{
+  "port": 8080,
+  "script": "cd {path} && git pull",
+  "repos": [{
+    "name": "github-repo-sync",
+    "path": "./",
+    "branch": "main",
+    "secret": "bruh"
+  }]
+}

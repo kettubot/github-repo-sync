@@ -1,0 +1,26 @@
+{
+  "name": "github-repo-sync",
+  "version": "1.0.0",
+  "description": "Simple webhook-based utility for keeping a remote GitHub repo up to date with the origin.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kettubot/github-repo-sync.git"
+  },
+  "keywords": [
+    "webhook",
+    "github",
+    "sync",
+    "repo",
+    "repository"
+  ],
+  "author": "eeehh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kettubot/github-repo-sync/issues"
+  },
+  "homepage": "https://github.com/kettubot/github-repo-sync#readme"
+}
