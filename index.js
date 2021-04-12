@@ -24,7 +24,7 @@ http.createServer((req, res) => {
     const signature = 'sha1=' + crypto.createHmac('sha1', target.secret).update(data).digest('hex')
     if (req.headers['x-hub-signature'] !== signature) return closeWith(403, 'Forbidden')
 
-    if (json.action.toLowerCase() !== 'push') return closeWith(304, 'Not Modified')
+    if (json.action?.toLowerCase() !== 'push') return closeWith(304, 'Not Modified')
     if (json.ref !== 'refs/heads/' + target.branch) return closeWith(304, 'Not Modified')
 
     exec(config.script.replace('{path}', target.path))
