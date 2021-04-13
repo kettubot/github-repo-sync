@@ -18,7 +18,7 @@ http.createServer((req, res) => {
   req.on('end', () => {
     const json = JSON.parse(data)
 
-    const target = config.repos.find(r => r.name === json.repository.name)
+    const target = config.repos.find(r => r.name === json.repository.name && json.ref === 'refs/heads/' + r.branch)
     if (!target) return closeWith(404, 'Not Found')
 
     const signature = 'sha1=' + crypto.createHmac('sha1', target.secret).update(data).digest('hex')
@@ -30,7 +30,6 @@ http.createServer((req, res) => {
     }
 
     if (req.headers['x-github-event'] !== 'push') return closeWith(304, 'Not Modified')
-    if (json.ref !== 'refs/heads/' + target.branch) return closeWith(304, 'Not Modified')
 
     const script = target.script || config.script
 
