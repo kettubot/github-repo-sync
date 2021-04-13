@@ -38,4 +38,4 @@ http.createServer((req, res) => {
 
     return closeWith(200, 'OK')
   })
-}).listen(config.port)
+}).listen(config.port, () => console.log('github-repo-sync online at :' + config.port))
