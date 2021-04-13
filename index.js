@@ -18,16 +18,16 @@ http.createServer((req, res) => {
   req.on('end', () => {
     const json = JSON.parse(data)
 
+    if (json.zen) {
+      console.log('Ping! ' + json.zen)
+      return closeWith(200, 'OK')
+    }
+
     const target = config.repos.find(r => r.name === json.repository.name && json.ref === 'refs/heads/' + r.branch)
     if (!target) return closeWith(404, 'Not Found')
 
     const signature = 'sha1=' + crypto.createHmac('sha1', target.secret).update(data).digest('hex')
     if (req.headers['x-hub-signature'] !== signature) return closeWith(403, 'Forbidden')
-
-    if (json.zen) {
-      console.log('Ping! ' + json.zen)
-      return closeWith(200, 'OK')
-    }
 
     if (req.headers['x-github-event'] !== 'push') return closeWith(304, 'Not Modified')
 
