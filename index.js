@@ -24,6 +24,11 @@ http.createServer((req, res) => {
     const signature = 'sha1=' + crypto.createHmac('sha1', target.secret).update(data).digest('hex')
     if (req.headers['x-hub-signature'] !== signature) return closeWith(403, 'Forbidden')
 
+    if (json.zen) {
+      console.log('Ping! ' + json.zen)
+      return closeWith(200, 'OK')
+    }
+
     if (req.headers['x-github-event'] !== 'push') return closeWith(304, 'Not Modified')
     if (json.ref !== 'refs/heads/' + target.branch) return closeWith(304, 'Not Modified')
 
