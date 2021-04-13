@@ -32,7 +32,9 @@ http.createServer((req, res) => {
     if (req.headers['x-github-event'] !== 'push') return closeWith(304, 'Not Modified')
     if (json.ref !== 'refs/heads/' + target.branch) return closeWith(304, 'Not Modified')
 
-    exec(config.script.replace('{path}', target.path))
+    const script = target.script || config.script
+
+    exec(script.split('{path}').join(target.path))
 
     return closeWith(200, 'OK')
   })
