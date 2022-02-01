@@ -33,7 +33,9 @@ http.createServer((req, res) => {
 
     const script = target.script || config.script
 
-    exec(script.split('{path}').join(target.path))
+    exec(script.split('{path}').join(target.path), err => {
+       if (err) console.error(err)
+    })
 
     return closeWith(200, 'OK')
   })
